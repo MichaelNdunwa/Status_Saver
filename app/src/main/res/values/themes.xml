@@ -1,0 +1,32 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StatusSaver" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- Color Palette -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/grey</item>
+        <item name="iconTint">@color/grey</item>
+
+        <!-- Font Family -->
+        <item name="fontFamily">@font/helvetice_regular</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Theme.StatusSaver" parent="Base.Theme.StatusSaver" />
+
+    <!-- BottomNavigation Style -->
+    <style name="BottomNavIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/colorPrimaryLight</item>
+        <item name="actionDropDownStyle">@color/colorPrimary</item>
+<!--        <item name="iconTint">@color/colorBottomNav</item>-->
+<!--        <item name="android:titleTextColor">@color/colorBottomNav</item>-->
+    </style>
+
+    <style name="BottomNavText">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/whatsapp"
+        android:title="WhatsApp"
+        android:icon="@drawable/selector_whatsapp_icon" />
+
+    <item
+        android:id="@+id/w_business"
+        android:title="W.Business"
+        android:icon="@drawable/selector_w_business_icon" />
+
+    <item
+        android:id="@+id/downloaded"
+        android:title="Downloaded"
+        android:icon="@drawable/selector_downloaded_icon" />
+
+</menu>
