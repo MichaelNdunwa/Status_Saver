@@ -24,19 +24,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigation() {
+        val bundle = Bundle()
         binding.apply {
-
             bottomNavigation.menu.getItem(0).isChecked = true
+            bundle.putString(Constant.FRAGMENT_TYPE_KEY, Constant.STATUS_TYPE_WHATSAPP)
+            replaceFragment(StatusFragment(), bundle)
             setIndicatorPosition(0)
 
             bottomNavigation.setOnItemSelectedListener { item ->
                 // Handle Fragments:
-                val bundle = Bundle()
                 when (item.itemId) {
                     R.id.whatsapp -> {
                         // WhatsApp Fragment
                         bundle.putString(Constant.FRAGMENT_TYPE_KEY, Constant.STATUS_TYPE_WHATSAPP)
-                        replaceFragment(StatusFragment())
+                        replaceFragment(StatusFragment(), bundle)
                         setIndicatorPosition(0)
                     }
 

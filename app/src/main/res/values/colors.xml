@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#E6000000</color>
-    <color name="white">#E6FFFFFF</color>
+    <color name="black">#DD000000</color>
+    <color name="white">#EDFFFFFF</color>
     <color name="gray">#FF808080</color>
     <color name="grey">#80000000</color>
     <color name="colorPrimary">#1EA952</color>
@@ -14,4 +14,11 @@
     <color name="colorActiveItemDay">#000000</color>
     <color name="colorInactiveItemNight">#BABABA</color>
     <color name="colorActiveItemNight">#fff</color>
+
+    <!-- Text Color -->
+    <color name="primaryTextColor">@color/black</color>
+    <color name="secondaryTextColor">@color/grey</color>
+
+    <!-- Icon Color -->
+    <color name="iconTint">@color/grey</color>
 </resources>

@@ -7,4 +7,6 @@
     <string name="no_video_available_now">No Video Available Now</string>
     <string name="open_whatsapp_info">* Open WhatsApp Status\n* View Status From WhatsApp\n* Open the App to Download</string>
     <string name="open_whatsapp_business_info">* Open WhatsApp Business Status\n* View Status From WhatsApp Business\n* Open the App to Download</string>
+    <string name="open_whatsapp_or_business_whatsapp">* Open WhatsApp or Business WhatsApp\n* View Statusm* Open the App to Download</string>
+    <string name="no_media_available_yet">No Media Available Yet...</string>
 </resources>

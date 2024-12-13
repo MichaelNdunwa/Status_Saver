@@ -10,23 +10,33 @@ import com.michael.statussaver.utils.Constant
 import com.michael.statussaver.R
 
 class StatusFragment : Fragment() {
+    private var _binding: FragmentStatusBinding? = null
+    private val binding get() = _binding!!
     private val activity = this
-    private val binding by lazy { FragmentStatusBinding.inflate(layoutInflater) }
     private lateinit var type: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentStatusBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.apply {
-            statusViewPager.visibility = View.GONE
             arguments?.let {
                 type = it.getString(Constant.FRAGMENT_TYPE_KEY, "")
                 // set open app info:
                 when (type) {
                     Constant.STATUS_TYPE_WHATSAPP -> {
+                        permissionHolder.visibility = View.VISIBLE
                         noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_info)
                     }
                     Constant.STATUS_TYPE_WHATSAPP_BUSINESS -> {
+                        permissionHolder.visibility = View.VISIBLE
                         noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_business_info)
                     }
                 }
@@ -35,11 +45,8 @@ class StatusFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return binding.root
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

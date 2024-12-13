@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Text Color -->
+    <color name="primaryTextColor">@color/white</color>
+    <color name="secondaryTextColor">@color/gray</color>
+
+    <!-- Icon Color -->
+    <color name="iconTint">@color/gray</color>
+</resources>

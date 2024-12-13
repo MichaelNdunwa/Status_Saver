@@ -40,18 +40,18 @@
             android:id="@+id/no_media_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?android:textColorPrimary"
-            android:textSize="24sp"
             android:fontFamily="@font/roboto_black"
-            android:textStyle="bold"
-            android:text="@string/no_image_available_now" />
+            android:text="@string/no_image_available_now"
+            android:textColor="@color/primaryTextColor"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/open_app_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/secondaryTextColor"
             android:textAlignment="viewStart"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_light"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toBottomOf="@id/info_holder"
         android:text="Open WhatsApp"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/primaryTextColor"
         app:cornerRadius="10dp"
         android:id="@+id/allow_permission"
         android:fontFamily="@font/roboto_bold"

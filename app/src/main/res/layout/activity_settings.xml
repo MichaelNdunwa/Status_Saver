@@ -52,7 +52,7 @@
                         android:src="@drawable/icon_folder"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/download"
@@ -61,7 +61,7 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_black"
                         android:text="Download Location"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/icon"
@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_marginEnd="50dp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:fontFamily="@font/roboto_light"
                         android:text="/storage/emulated/0/Download/statussaverplay/"
                         android:textSize="14sp"
@@ -97,7 +97,7 @@
                         android:src="@drawable/icon_bell"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/notification"
@@ -107,7 +107,7 @@
                         android:fontFamily="@font/roboto_black"
                         android:text="Notification"
                         android:textSize="16sp"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/notification_icon"
                         app:layout_constraintStart_toEndOf="@id/notification_icon"
@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/roboto_light"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:text="Get notified when new status is available"
                         android:textSize="14sp"
                         android:layout_marginEnd="50dp"
@@ -153,14 +153,14 @@
                         android:src="@drawable/icon_auto_save"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/auto_save"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:fontFamily="@font/roboto_black"
                         android:text="Auto save"
                         android:textSize="16sp"
@@ -188,7 +188,7 @@
                         android:fontFamily="@font/roboto_light"
                         android:text="Save new status automatically"
                         android:textSize="14sp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:layout_marginEnd="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -200,6 +200,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_margin="8dp"
+                    android:id="@+id/theme_layout"
                     android:layout_height="wrap_content">
 
                     <ImageView
@@ -209,7 +210,7 @@
                         android:src="@drawable/icon_theme"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/theme"
@@ -218,7 +219,7 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_black"
                         android:text="Theme"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/theme_icon"
@@ -230,19 +231,19 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/theme"
                         app:layout_constraintBottom_toBottomOf="@id/theme"
                         />
 
                     <TextView
-                        android:id="@+id/theme_details"
+                        android:id="@+id/display_selected_theme"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/roboto_light"
                         android:text="Light"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:textSize="14sp"
                         android:layout_marginEnd="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -264,13 +265,13 @@
                         android:src="@drawable/icon_language"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/language"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_black"
                         android:text="Languages"
@@ -285,7 +286,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/language"
                         app:layout_constraintBottom_toBottomOf="@id/language"
                         />
@@ -295,7 +296,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:fontFamily="@font/roboto_light"
                         android:text="Default (English)"
                         android:textSize="14sp"
@@ -330,14 +331,14 @@
                         android:src="@drawable/icon_share"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:fontFamily="@font/roboto_black"
                         android:text="Share app"
                         android:textSize="16sp"
@@ -351,7 +352,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/share"
                         app:layout_constraintBottom_toBottomOf="@id/share"
                         />
@@ -365,7 +366,7 @@
                         android:text="Share app with friends and family"
                         android:textSize="14sp"
                         android:layout_marginEnd="50dp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/share"
@@ -385,7 +386,7 @@
                         android:src="@drawable/icon_star"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/rate_us"
@@ -393,7 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_black"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:text="Rate Us"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -406,7 +407,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/rate_us"
                         app:layout_constraintBottom_toBottomOf="@id/rate_us"
                         />
@@ -416,7 +417,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:fontFamily="@font/roboto_light"
                         android:text="We would be very grateful if you can rate us"
                         android:textSize="14sp"
@@ -440,7 +441,7 @@
                         android:src="@drawable/icon_privacy"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/privacy"
@@ -449,7 +450,7 @@
                         android:layout_marginStart="8dp"
                         android:fontFamily="@font/roboto_black"
                         android:text="Privacy"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/privacy_icon"
@@ -461,7 +462,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/privacy"
                         app:layout_constraintBottom_toBottomOf="@id/privacy"
                         />
@@ -477,7 +478,7 @@
                         android:layout_marginEnd="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         app:layout_constraintStart_toStartOf="@id/privacy"
                         app:layout_constraintTop_toBottomOf="@id/privacy"
                         app:layout_constraintVertical_bias="0.0" />
@@ -495,14 +496,14 @@
                         android:src="@drawable/icon_restart"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="?iconTint" />
+                        app:tint="@color/iconTint" />
 
                     <TextView
                         android:id="@+id/restart_service"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:textColor="?android:textColorPrimary"
+                        android:textColor="@color/primaryTextColor"
                         android:fontFamily="@font/roboto_black"
                         android:text="Restart Service"
                         android:textSize="16sp"
@@ -516,7 +517,7 @@
                         android:layout_height="20dp"
                         android:src="@drawable/icon_right_arrow"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:tint="?iconTint"
+                        app:tint="@color/iconTint"
                         app:layout_constraintTop_toTopOf="@id/restart_service"
                         app:layout_constraintBottom_toBottomOf="@id/restart_service"
                         />
@@ -529,7 +530,7 @@
                         android:fontFamily="@font/roboto_light"
                         android:text="In case media won't display"
                         android:textSize="14sp"
-                        android:textColor="?android:textColorSecondary"
+                        android:textColor="@color/secondaryTextColor"
                         android:layout_marginEnd="50dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

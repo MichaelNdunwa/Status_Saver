@@ -1,29 +1,81 @@
 package com.michael.statussaver.views.activities
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.michael.statussaver.R
 import com.michael.statussaver.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE)
+        val theme = sharedPreferences.getString("theme", "Light")
+        when (theme) {
+            "System default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
         setContentView(binding.root)
 
+        toolbar()
+        setUpTheme()
+    }
+
+    private fun setUpTheme() {
+        binding.apply {
+            var index = 0
+            var selectedTheme = sharedPreferences.getString("theme", "Light")!!
+            val themeChoice = arrayOf("System default", "Light", "Dark")
+            displaySelectedTheme.text = selectedTheme // Set the initial theme text
+
+            when (selectedTheme) {
+                "System default" -> index = 0
+                "Light" -> index = 1
+                "Dark" -> index = 2
+            }
+
+            themeLayout.setOnClickListener {
+                MaterialAlertDialogBuilder(this@SettingsActivity)
+                    .setTitle("Choose theme")
+                    .setSingleChoiceItems(themeChoice, index) { dialog, which ->
+                        index = which
+                        selectedTheme = themeChoice[which]
+                    }
+                    .setPositiveButton("Ok") { dialog, which ->
+                        displaySelectedTheme.text = selectedTheme // Update the theme text
+                        sharedPreferences.edit().putString("theme", selectedTheme).apply()
+                        when (selectedTheme) {
+                            "System default" -> AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                            )
+
+                            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                        }
+                        recreate()
+                    }
+                    .setNegativeButton("Cancel") { dialog, which ->
+                        dialog.dismiss()
+                    }
+                    .create()
+                    .show()
+            }
+        }
+    }
+
+    private fun toolbar() {
         binding.apply {
             setSupportActionBar(toolbar)
-//            supportActionBar?.setDisplayShowHomeEnabled(true)
-//            supportActionBar!!.setLogo(R.drawable.icon_back)
-//            supportActionBar!!.setDisplayUseLogoEnabled(true)
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-//            toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
-//            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         }
     }
 

@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="24sp"
-            android:textColor="?android:textColorPrimary"
+            android:textColor="@color/primaryTextColor"
             android:fontFamily="@font/roboto_black"
             android:textStyle="bold"
             android:text="@string/permission_required" />
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/secondaryTextColor"
             android:textSize="16sp"
             android:text="Status saver needs Storage Permission to work." />
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textAlignment="viewStart"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="@color/secondaryTextColor"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_light"
             android:text="* On next screen please tap on\n* USE THIS FOLDER\n* to give Storage Permission" />
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toBottomOf="@id/info_holder"
         android:text="Allow Permission"
         android:textStyle="bold"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/primaryTextColor"
         app:cornerRadius="10dp"
         android:id="@+id/allow_permission"
         android:fontFamily="@font/roboto_bold"
