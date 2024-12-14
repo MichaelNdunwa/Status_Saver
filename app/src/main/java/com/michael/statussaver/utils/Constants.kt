@@ -3,7 +3,7 @@ package com.michael.statussaver.utils
 import android.net.Uri
 import android.os.Build
 
-object Constant {
+object Constants {
     const val STATUS_TYPE_WHATSAPP = "com.whatsapp"
     const val MEDIA_TYPE_WHATSAPP_IMAGES = "com.whatsapp.images"
     const val MEDIA_TYPE_WHATSAPP_VIDEOS = "com.whatsapp.videos"
@@ -29,14 +29,14 @@ object Constant {
     val WHATSAPP_BUSINESS_PATH_URI_ANDROID_11 =
         Uri.parse("content://com.android.externalstorage.documents/document/primary%3AAndroid%2Fmedia%2Fcom.whatsapp.w4b%2FWhatsApp%20Business%2FMedia%2F.Statuses")
 
-    fun getWhatsAppStatusPath(): Uri {
+    fun getWhatsAppStatusUriPath(): Uri {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             WHATSAPP_PATH_URI_ANDROID_11
         } else {
             WHATSAPP_PATH_URI_ANDROID
         }
     }
-    fun getWhatsAppBusinessStatusPath(): Uri {
+    fun getWhatsAppBusinessStatusUriPath(): Uri {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             WHATSAPP_BUSINESS_PATH_URI_ANDROID_11
         } else {

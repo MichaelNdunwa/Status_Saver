@@ -1,39 +1,33 @@
 package com.michael.statussaver.views.activities
 
-import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.michael.statussaver.R
 import com.michael.statussaver.databinding.ActivitySettingsBinding
+import com.michael.statussaver.utils.SharedPrefUtils
+import com.michael.statussaver.utils.applyTheme
 
 class SettingsActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySettingsBinding.inflate(layoutInflater) }
-    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE)
-        val theme = sharedPreferences.getString("theme", "Light")
-        when (theme) {
-            "System default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            "Light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            "Dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }
         setContentView(binding.root)
 
         toolbar()
         setUpTheme()
     }
 
+    override fun onResume() {
+        super.onResume()
+        applyTheme()
+    }
+
     private fun setUpTheme() {
         binding.apply {
             var index = 0
-            var selectedTheme = sharedPreferences.getString("theme", "Light")!!
+            var selectedTheme = SharedPrefUtils.getPrefString("theme", "Light")!!
             val themeChoice = arrayOf("System default", "Light", "Dark")
             displaySelectedTheme.text = selectedTheme // Set the initial theme text
 
@@ -52,7 +46,7 @@ class SettingsActivity : AppCompatActivity() {
                     }
                     .setPositiveButton("Ok") { dialog, which ->
                         displaySelectedTheme.text = selectedTheme // Update the theme text
-                        sharedPreferences.edit().putString("theme", selectedTheme).apply()
+                        SharedPrefUtils.putPrefString("theme", selectedTheme)
                         when (selectedTheme) {
                             "System default" -> AppCompatDelegate.setDefaultNightMode(
                                 AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
