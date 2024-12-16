@@ -59,12 +59,13 @@ class MainActivity : AppCompatActivity() {
 
                     R.id.downloaded -> {
                         // Downloaded Fragment
-                        replaceFragment(DownloadedFragment())
+//                        replaceFragment(DownloadedFragment())
+                        bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.STATUS_TYPE_DOWNLOADED)
+                        replaceFragment(StatusFragment(), bundle)
                         setIndicatorPosition(2)
                     }
                 }
-
-                true
+                return@setOnItemSelectedListener true
             }
         }
 
@@ -85,6 +86,12 @@ class MainActivity : AppCompatActivity() {
                 indicator.visibility = View.VISIBLE
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val fragment = supportFragmentManager.findFragmentById(R.id.frame_layout)
+        fragment?.onActivityResult(requestCode, resultCode, data)
     }
 
 }

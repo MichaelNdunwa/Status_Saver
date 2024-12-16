@@ -10,5 +10,6 @@ fun getFolderPermissions(context: Context, REQUET_CODE: Int, initialUri: Uri) {
     val activity = context as Activity
     val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
     intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, initialUri)
+    intent.putExtra("android.content.extra.SHOW_ADVANCED", true)
     activity.startActivityForResult(intent, REQUET_CODE)
 }

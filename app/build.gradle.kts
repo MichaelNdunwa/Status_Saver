@@ -67,4 +67,7 @@ dependencies {
     // Glide:
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    // Anggraydi Storage:
+    implementation("com.anggrayudi:storage:2.0.0")
+
 }

@@ -2,97 +2,170 @@ package com.michael.statussaver.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.michael.statussaver.R
+import androidx.core.os.postDelayed
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.michael.statussaver.databinding.FragmentStatusBinding
+import com.michael.statussaver.R
+import com.michael.statussaver.data.StatusRepository
 import com.michael.statussaver.utils.Constants
 import com.michael.statussaver.utils.SharedPrefKeys
 import com.michael.statussaver.utils.SharedPrefUtils
 import com.michael.statussaver.utils.getFolderPermissions
 import com.michael.statussaver.viewmodels.StatusViewModel
+import com.michael.statussaver.viewmodels.factories.StatusViewModelFactory
+import com.michael.statussaver.views.activities.MainActivity
+import com.michael.statussaver.views.adapters.MediaViewPagerAdapter
+
 
 class StatusFragment : Fragment() {
-    private var _binding: FragmentStatusBinding? = null
-    private val binding get() = _binding!!
+
+    private val binding by lazy { FragmentStatusBinding.inflate(layoutInflater) }
     private lateinit var type: String
-    private val WHATSAPP_REQUEST_CODE = 101
-    private val WHATSAPP_BUSINESS_REQUEST_CODE = 102
+    private val WHATSAPP_REQUEST_CODE = 100
+    private val WHATSAPP_BUSINESS_REQUEST_CODE = 101
+//    private val activity = requireActivity()
     private val viewPagerTitles = arrayListOf("Images", "Videos")
     lateinit var viewModel: StatusViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentStatusBinding.inflate(inflater, container, false)
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.apply {
             arguments?.let {
                 type = it.getString(Constants.FRAGMENT_TYPE_KEY, "")
-                // set open app info:
+                val repository = StatusRepository(requireActivity())
+                viewModel = ViewModelProvider(
+                    requireActivity(), StatusViewModelFactory(repository)
+                )[StatusViewModel::class.java]
+
+                type = it.getString(Constants.FRAGMENT_TYPE_KEY, "")
+
                 when (type) {
                     Constants.STATUS_TYPE_WHATSAPP -> {
                         val isPermissionGranted = SharedPrefUtils.getPrefBoolean(
-                            SharedPrefKeys.PREF_KEY_WP_PERMISSION_GRANTED,
-                            false
+                            SharedPrefKeys.PREF_KEY_WP_PERMISSION_GRANTED, false
                         )
-                    /*    if (isPermissionGranted) {
+                        if (isPermissionGranted) {
                             getWhatsAppStatus()
-                        }*/
+                            binding.swipeRefreshLayout.setOnRefreshListener {
+                                refreshStatus()
+                            }
+                        }
                         givePermissionAccess.allowPermission.setOnClickListener {
                             getFolderPermissions(
                                 context = requireActivity(),
                                 REQUET_CODE = WHATSAPP_REQUEST_CODE,
                                 initialUri = Constants.getWhatsAppStatusUriPath()
                             )
-                            noMediaHolder.visibility = View.VISIBLE
-                            noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_info)
                         }
-
-
+                        val viewPagerAdapter = MediaViewPagerAdapter(
+                            requireActivity(),
+                            imagesType = Constants.MEDIA_TYPE_WHATSAPP_IMAGES,
+                            videosType = Constants.MEDIA_TYPE_WHATSAPP_VIDEOS
+                        )
+                        statusViewPager.adapter = viewPagerAdapter
+                        TabLayoutMediator(tabLayout, statusViewPager) { tab, pos ->
+                            tab.text = viewPagerTitles[pos]
+                        }.attach()
+            /*            noMediaWarning.openWhatsappButton.setOnClickListener {
+                            val packageName = Constants.STATUS_TYPE_WHATSAPP
+                            val intent = activity?.packageManager?.getLaunchIntentForPackage(packageName)
+                            if (intent != null) {
+                                requireActivity().startActivity(intent)
+                            } else {
+                                Toast.makeText(requireContext(), "WhatsApp is not installed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        //TODO: Remove the line of code below when you implement tab layout:
+                        noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_info)*/
                     }
 
                     Constants.STATUS_TYPE_WHATSAPP_BUSINESS -> {
+                        val isPermissionGranted = SharedPrefUtils.getPrefBoolean(
+                            SharedPrefKeys.PREF_KEY_WP_BUSINESS_PERMISSION_GRANTED,
+                            false
+                        )
+                        if (isPermissionGranted) {
+                            getWhatsAppBusinessStatus()
+                            binding.swipeRefreshLayout.setOnRefreshListener {
+                                refreshStatus()
+                            }
+                        }
                         givePermissionAccess.allowPermission.setOnClickListener {
                             getFolderPermissions(
                                 context = requireActivity(),
                                 REQUET_CODE = WHATSAPP_BUSINESS_REQUEST_CODE,
                                 initialUri = Constants.getWhatsAppBusinessStatusUriPath()
                             )
-                            noMediaHolder.visibility = View.VISIBLE
-                            noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_business_info)
                         }
+                        val viewPagerAdapter = MediaViewPagerAdapter(
+                            requireActivity(),
+                            imagesType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_IMAGES,
+                            videosType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_VIDEOS
+                        )
+                        statusViewPager.adapter = viewPagerAdapter
+                        TabLayoutMediator(tabLayout, statusViewPager) { tab, pos ->
+                            tab.text = viewPagerTitles[pos]
+                        }.attach()
+               /*         noMediaWarning.openWhatsappButton.setOnClickListener {
+                            val packageName = Constants.STATUS_TYPE_WHATSAPP_BUSINESS
+                            val intent = activity?.packageManager?.getLaunchIntentForPackage(packageName)
+                            if (intent != null) {
+                                startActivity(intent)
+                            } else {
+                                Toast.makeText(requireContext(), "WhatsApp Business is not installed", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        //TODO: Remove the line of code below when you implement tab layout:
+                        noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_business_info)*/
+                    }
 
+
+                    Constants.STATUS_TYPE_DOWNLOADED -> {
+                        val viewPagerAdapter = MediaViewPagerAdapter(
+                            requireActivity(),
+                            imagesType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_IMAGES,
+                            videosType = Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_VIDEOS
+                        )
+                        statusViewPager.adapter = viewPagerAdapter
+                        TabLayoutMediator(tabLayout, statusViewPager) { tab, pos ->
+                            tab.text = viewPagerTitles[pos]
+                        }.attach()
+                        /*         noMediaWarning.openWhatsappButton.setOnClickListener {
+                                     val packageName = Constants.STATUS_TYPE_WHATSAPP_BUSINESS
+                                     val intent = activity?.packageManager?.getLaunchIntentForPackage(packageName)
+                                     if (intent != null) {
+                                         startActivity(intent)
+                                     } else {
+                                         Toast.makeText(requireContext(), "WhatsApp Business is not installed", Toast.LENGTH_SHORT).show()
+                                     }
+                                 }
+                                 //TODO: Remove the line of code below when you implement tab layout:
+                                 noMediaWarning.openAppInfo.text = getString(R.string.open_whatsapp_business_info)*/
                     }
                 }
             }
-
         }
-
-
     }
 
-    fun getWhatsAppStatus() {
-        binding.permissionHolder.visibility = View.GONE
-    }
-    fun getWhatsAppBusinessStatus() {
-        binding.permissionHolder.visibility = View.GONE
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return binding.root
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-//        val fragment: Fragment? = (requireActivity() as AppCompatActivity).supportFragmentManager.findFragmentById(R.id.frame_layout)
-
         if (resultCode == AppCompatActivity.RESULT_OK) {
             val treeUri = data?.data!!
             requireActivity().contentResolver.takePersistableUriPermission(
@@ -106,23 +179,44 @@ class StatusFragment : Fragment() {
                 )
                 SharedPrefUtils.putPrefBoolean(SharedPrefKeys.PREF_KEY_WP_PERMISSION_GRANTED, true)
                 getWhatsAppStatus()
-            } else if (resultCode == WHATSAPP_BUSINESS_REQUEST_CODE) {
+            } else if (requestCode == WHATSAPP_BUSINESS_REQUEST_CODE) {
                 SharedPrefUtils.putPrefString(
                     SharedPrefKeys.PREF_KEY_WP_BUSINESS_TREE_URI,
                     treeUri.toString()
                 )
                 SharedPrefUtils.putPrefBoolean(SharedPrefKeys.PREF_KEY_WP_BUSINESS_PERMISSION_GRANTED, true)
                 getWhatsAppBusinessStatus()
+
             }
         }
     }
 
-
-
-
-
-     override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    fun getWhatsAppStatus() {
+        binding.permissionHolder.visibility = View.GONE
+        binding.tabLayout.visibility = View.VISIBLE
+        viewModel.getWhatsAppStatus()
     }
+    fun getWhatsAppBusinessStatus() {
+        binding.permissionHolder.visibility = View.GONE
+        binding.tabLayout.visibility = View.VISIBLE
+        viewModel.getWhatsAppBusinessStatus()
+    }
+
+    fun refreshStatus() {
+        when (type) {
+            Constants.STATUS_TYPE_WHATSAPP -> {
+                Toast.makeText(activity, "Refreshing WhatsApp Status", Toast.LENGTH_SHORT).show()
+                    getWhatsAppStatus()
+            }
+            Constants.STATUS_TYPE_WHATSAPP_BUSINESS -> {
+                Toast.makeText(activity, "Refreshing WhatsApp Business Status", Toast.LENGTH_SHORT).show()
+                getWhatsAppBusinessStatus()
+            }
+        }
+        Handler(Looper.myLooper()!!).postDelayed({
+            binding.swipeRefreshLayout.isRefreshing = false
+        }, 2000)
+//        (requireActivity() as MainActivity).recreate()
+    }
+
 }

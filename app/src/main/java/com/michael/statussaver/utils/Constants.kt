@@ -12,6 +12,9 @@ object Constants {
     const val MEDIA_TYPE_WHATSAPP_BUSINESS_IMAGES = "com.whatsapp.w4b.images"
     const val MEDIA_TYPE_WHATSAPP_BUSINESS_VIDEOS = "com.whatsapp.w4b.videos"
 
+    // Downloaded Status:
+    const val STATUS_TYPE_DOWNLOADED = "downloaded"
+
     const val MEDIA_LIST_KEY = "MEDIA_LIST"
     const val MEDIA_SCROLL_KEY = "MEDIA_SCROLL"
     const val MEDIA_TYPE_KEY = "MEDIA_TYPE"
@@ -20,7 +23,7 @@ object Constants {
 
     // WhatsApp Status Path URI:
     val WHATSAPP_PATH_URI_ANDROID =
-        Uri.parse("content://com.android.externalstorage.documents/document/primary%3AWhatsApp%3AWhatsApp%2FMedia%2F.Statuses")
+        Uri.parse("content://com.android.externalstorage.documents/document/primary%3AWhatsApp%2AWhatsApp%2FMedia%2F.Statuses")
     val WHATSAPP_PATH_URI_ANDROID_11 =
         Uri.parse("content://com.android.externalstorage.documents/document/primary%3AAndroid%2Fmedia%2Fcom.whatsapp%2FWhatsApp%2FMedia%2F.Statuses")
 

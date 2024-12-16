@@ -26,15 +26,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
+        android:id="@+id/info_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_holder"
-        android:id="@+id/info_holder"
-        android:gravity="center"
         android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintTop_toBottomOf="@id/image_holder">
 
         <TextView
             android:id="@+id/no_media_text_view"
@@ -50,27 +50,27 @@
             android:id="@+id/open_app_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/secondaryTextColor"
-            android:textAlignment="viewStart"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto_light"
-            android:text="@string/open_whatsapp_info" />
+            android:text="@string/open_whatsapp_info"
+            android:textAlignment="viewStart"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/open_whatsapp_button"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/info_holder"
-        android:text="Open WhatsApp"
-        android:textStyle="bold"
-        android:textColor="@color/primaryTextColor"
-        app:cornerRadius="10dp"
-        android:id="@+id/allow_permission"
+        android:layout_margin="32dp"
         android:fontFamily="@font/roboto_bold"
-        android:layout_margin="32dp"/>
+        android:text="Open WhatsApp"
+        android:textColor="@color/primaryTextColor"
+        android:textStyle="bold"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/info_holder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
