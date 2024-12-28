@@ -65,7 +65,7 @@ class StatusViewModel(val repository: StatusRepository) : ViewModel() {
     fun getWhatsAppStatus() {
         CoroutineScope(Dispatchers.IO).launch {
             if (!isWhatsAppPermissionGranted) {
-                Log.d(TAG, "getWhatsAppStatus: Requsting Whatsapp Status")
+                Log.d(TAG, "getWhatsAppStatus: Requesting Whatsapp Status")
                 repository.getAllStatus(Constants.STATUS_TYPE_WHATSAPP)
             }
             withContext(Dispatchers.Main) {
@@ -97,7 +97,7 @@ class StatusViewModel(val repository: StatusRepository) : ViewModel() {
     fun getWhatsAppBusinessStatus() {
         CoroutineScope(Dispatchers.IO).launch {
             if (!isWhatsAppBusinessPermissionGranted) {
-                Log.d(TAG, "getWhatsAppBusinessStatus: Requsting Whatsapp Status")
+                Log.d(TAG, "getWhatsAppBusinessStatus: Requesting Whatsapp Status")
                 repository.getAllStatus(Constants.STATUS_TYPE_WHATSAPP_BUSINESS)
             }
             withContext(Dispatchers.Main) {

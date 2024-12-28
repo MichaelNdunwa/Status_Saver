@@ -16,12 +16,26 @@ class ImagesPreviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        toolbar()
         binding.apply {
-            val list = intent.getSerializableExtra(Constants.MEDIA_LIST_KEY) as ArrayList<MediaModel>
+            val list =
+                intent.getSerializableExtra(Constants.MEDIA_LIST_KEY) as ArrayList<MediaModel>
             val scrollTo = intent.getIntExtra(Constants.MEDIA_SCROLL_KEY, 0)
             adapter = ImagesPreviewAdapter(list, activity)
             imageViewPager.adapter = adapter
             imageViewPager.currentItem = scrollTo
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()
+        return true
+    }
+
+    private fun toolbar() {
+        binding.apply {
+            setSupportActionBar(toolbar)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
     }
 }

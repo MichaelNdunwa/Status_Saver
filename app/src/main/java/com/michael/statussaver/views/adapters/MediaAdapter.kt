@@ -36,13 +36,9 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
                     if (mediaModel.isDownloaded) {
                         downloadText.visibility = View.GONE
                         downloadCheck.visibility = View.VISIBLE
-                    /*   downloadText.visibility = View.VISIBLE
-                        downloadCheck.visibility = View.GONE*/
                     } else {
                         downloadText.visibility = View.VISIBLE
                         downloadCheck.visibility = View.GONE
-                      /*  downloadText.visibility = View.GONE
-                        downloadCheck.visibility = View.VISIBLE*/
                     }
                     // set click listener for status card:
                     statusCard.setOnClickListener {
@@ -78,24 +74,7 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
                             Toast.makeText(context, "Unable to Save", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    /*var isToastShown = false
-                    val isDownload = context.saveStatus(mediaModel)
-                    if (isDownload) {
-                        // Status saved successfully
-                        if (!isToastShown) {
-                            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
-                            isToastShown = true
-                        }
-                        mediaModel.isDownloaded = true
-                        downloadCheck.visibility = View.VISIBLE
-                        downloadText.visibility = View.GONE
-                    } else {
-                        // unable to download status:
-                        if (!isToastShown) {
-                            Toast.makeText(context, "Unable to Save", Toast.LENGTH_SHORT).show()
-                            isToastShown = true
-                        }
-                    }*/
+
                 }
             }
 
