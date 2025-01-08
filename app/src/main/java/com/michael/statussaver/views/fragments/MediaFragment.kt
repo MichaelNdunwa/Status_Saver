@@ -44,7 +44,7 @@ class MediaFragment : Fragment() {
                             }
                             adapter = MediaAdapter(list, requireActivity())
                             mediaRecyclerView.adapter = adapter
-                            if (list.size == 0) {
+                            if (list.isEmpty()) {
                                 noMediaAvailable.noMediaTextView.text = getString(R.string.no_image_available_now)
                                 noMediaHolder.visibility = View.VISIBLE
                             } else {

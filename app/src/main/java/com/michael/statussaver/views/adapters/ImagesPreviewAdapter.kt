@@ -1,6 +1,7 @@
 package com.michael.statussaver.views.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -63,6 +64,22 @@ class ImagesPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context
                         } else {
                             Toast.makeText(context, "Unable to Save", Toast.LENGTH_SHORT).show()
                         }
+                    }
+
+                    tools.shareButton.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "image/*"
+                        intent.putExtra(Intent.EXTRA_STREAM, mediaModel.pathUri.toUri())
+                        intent.putExtra(Intent.EXTRA_TEXT, "See this awesome status I saw on Status downloader app.")
+                        context.startActivity(Intent.createChooser(intent, "Share Status"))
+                    }
+
+                    tools.repostButton.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_SEND)
+                        intent.type = "image/*"
+                        intent.setPackage("com.whatsapp")
+                        intent.putExtra(Intent.EXTRA_STREAM, mediaModel.pathUri.toUri())
+                        context.startActivity(intent)
                     }
                 }
             }
