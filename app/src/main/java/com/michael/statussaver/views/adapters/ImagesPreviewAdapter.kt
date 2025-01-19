@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide
 import com.michael.statussaver.databinding.ItemImagePreviewBinding
 import com.michael.statussaver.models.MediaModel
 import com.michael.statussaver.R
+import com.michael.statussaver.utils.Constants
+import com.michael.statussaver.utils.SharedPrefUtils
+import com.michael.statussaver.utils.isStatusExist
 import com.michael.statussaver.utils.saveStatus
 
 class ImagesPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context) :
@@ -36,36 +39,39 @@ class ImagesPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context
         RecyclerView.ViewHolder(binding.root) {
             fun bind(mediaModel: MediaModel) {
                 binding.apply {
-                    Glide.with(context)
-                        .load(mediaModel.pathUri.toUri())
-                        .into(zoomableImageView)
+                    Glide.with(context).load(mediaModel.pathUri.toUri()).into(zoomableImageView)
 
-                    val downloadImage = if (mediaModel.isDownloaded) {
-                        R.drawable.icon_check
-                    } else {
-                        R.drawable.icon_download_2
-                    }
-                    val downloadText = if (mediaModel.isDownloaded) {
-                        "Saved"
-                    } else {
-                        "Download"
-                    }
+//                    val downloadImage = if (mediaModel.isDownloaded) {
+//                        R.drawable.icon_check
+//                    } else {
+//                        R.drawable.icon_download_2
+//                    }
+//                    val downloadText = if (mediaModel.isDownloaded) {
+//                        "Saved"
+//                    } else {
+//                        "Download"
+//                    }
+//                    mediaModel.isDownloaded = SharedPrefUtils.getPrefDownloadState(mediaModel.fileName)
+//                    val downloadImage = if (mediaModel.isDownloaded) R.drawable.icon_check else R.drawable.icon_download_2
+//                    val downloadText = if (mediaModel.isDownloaded) "Saved" else "Download"
+                    val downloadImage = if (context.isStatusExist(mediaModel.fileName, mediaModel.fileType)) R.drawable.icon_check else R.drawable.icon_download_2
+                    val downloadText = if (context.isStatusExist(mediaModel.fileName, mediaModel.fileType)) "Saved" else "Download"
                     tools.downloadIcon.setImageResource(downloadImage)
                     tools.downloadTextview.text = downloadText
 
                     tools.downloadButton.setOnClickListener {
                         val isDownloaded = context.saveStatus(mediaModel)
                         if (isDownloaded) {
-                            // status is downloaded/saved
-                            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
+//                            SharedPrefUtils.putPrefDownloadState(mediaModel.fileName, true)
                             mediaModel.isDownloaded = true
                             tools.downloadIcon.setImageResource(R.drawable.icon_check)
                             tools.downloadTextview.text = "Saved"
                         } else {
-                            Toast.makeText(context, "Unable to Save", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Unable to save", Toast.LENGTH_SHORT).show()
                         }
                     }
 
+                    // Share button:
                     tools.shareButton.setOnClickListener {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.type = "image/*"
@@ -74,6 +80,7 @@ class ImagesPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context
                         context.startActivity(Intent.createChooser(intent, "Share Status"))
                     }
 
+                    // Repost button:
                     tools.repostButton.setOnClickListener {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.type = "image/*"
@@ -81,6 +88,7 @@ class ImagesPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context
                         intent.putExtra(Intent.EXTRA_STREAM, mediaModel.pathUri.toUri())
                         context.startActivity(intent)
                     }
+//                    Intent().putExtra(Constants.MEDIA_LIST_KEY, list)
                 }
             }
     }

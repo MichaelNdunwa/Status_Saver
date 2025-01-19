@@ -4,6 +4,7 @@ import java.io.Serializable
 
 const val MEDIA_TYPE_IMAGE = "image"
 const val MEDIA_TYPE_VIDEO = "video"
+const val MEDIA_TYPE_AUDIO = "audio"
 
 data class MediaModel(
     val pathUri: String,

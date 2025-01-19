@@ -46,6 +46,17 @@ object SharedPrefUtils {
         editor.apply()
         return true
     }
+
+    // To remember the download status
+    fun putPrefDownloadState(fileName: String, isDownloaded: Boolean): Boolean {
+        editor = preferences.edit()
+        editor.putBoolean(fileName, isDownloaded)
+        editor.apply()
+        return true
+    }
+    fun getPrefDownloadState(fileName: String): Boolean {
+        return preferences.getBoolean(fileName, false)
+    }
 }
 
 object SharedPrefKeys {
@@ -55,4 +66,5 @@ object SharedPrefKeys {
     const val PREF_KEY_WP_BUSINESS_TREE_URI = "PREF_KEY_WP_BUSINESS_TREE_URI"
     const val PREF_KEY_DOWNLOADED_PERMISSION_GRANTED = "PREF_KEY_DOWNLOADED_PERMISSION_GRANTED"
     const val PREF_KEY_DOWNLOADED_TREE_URI = "PREF_KEY_DOWNLOADED_TREE_URI"
+
 }

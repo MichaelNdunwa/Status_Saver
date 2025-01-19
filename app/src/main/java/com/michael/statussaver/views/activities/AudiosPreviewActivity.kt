@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.michael.statussaver.databinding.ActivityAudiosPreviewBinding
 import com.michael.statussaver.databinding.ActivityVideosPreviewBinding
 import com.michael.statussaver.models.MediaModel
 import com.michael.statussaver.utils.Constants
@@ -14,9 +15,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.ArrayList
 
-class VideosPreviewActivity : AppCompatActivity() {
+class AudiosPreviewActivity : AppCompatActivity() {
     private val activity = this
-    private val binding by lazy { ActivityVideosPreviewBinding.inflate(layoutInflater) }
+    private val binding by lazy { ActivityAudiosPreviewBinding.inflate(layoutInflater) }
     private lateinit var adapter: VideoPreviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,10 +55,6 @@ class VideosPreviewActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()
-        return true
     }
 
     override fun onPause() {

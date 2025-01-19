@@ -1,6 +1,9 @@
 package com.michael.statussaver.views.fragments
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,16 +24,14 @@ class MediaFragment : Fragment() {
     private val binding by lazy { FragmentMediaBinding.inflate(layoutInflater) }
     lateinit var viewModel: StatusViewModel
     lateinit var adapter: MediaAdapter
+//    var adapter: MediaAdapter = MediaAdapter(ArrayList(), requireActivity())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
             arguments?.let {
                 val repository = StatusRepository(requireActivity())
-                viewModel = ViewModelProvider(
-                    requireActivity(),
-                    StatusViewModelFactory(repository)
-                )[StatusViewModel::class.java]
+                viewModel = ViewModelProvider(requireActivity(), StatusViewModelFactory(repository))[StatusViewModel::class.java]
                 val mediaType = it.getString(Constants.MEDIA_TYPE_KEY, "")
                 when (mediaType) {
                     Constants.MEDIA_TYPE_WHATSAPP_IMAGES -> {
@@ -72,6 +73,25 @@ class MediaFragment : Fragment() {
                             }
                         }
                     }
+                    Constants.MEDIA_TYPE_WHATSAPP_AUDIOS -> {
+                        viewModel.whatsAppAudiosLiveData.observe(requireActivity()) { unFiltered ->
+                            val filteredList = unFiltered.distinctBy { model ->
+                                model.fileName
+                            }
+                            val list = ArrayList<MediaModel>()
+                            filteredList.forEach { model ->
+                                list.add(model)
+                            }
+                            adapter = MediaAdapter(list, requireActivity())
+                            mediaRecyclerView.adapter = adapter
+                            if (list.size == 0) {
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.no_video_available_now)
+                                noMediaHolder.visibility = View.VISIBLE
+                            } else {
+                                noMediaHolder.visibility = View.GONE
+                            }
+                        }
+                    }
 
 
                     Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_IMAGES -> {
@@ -85,6 +105,7 @@ class MediaFragment : Fragment() {
                             }
                             adapter = MediaAdapter(list, requireActivity())
                             mediaRecyclerView.adapter = adapter
+                            Log.d("WhatsAppBusiness", "${list.size}")
                             if (list.size == 0) {
                                 noMediaAvailable.noMediaTextView.text = getString(R.string.no_image_available_now)
                                 noMediaAvailable.openAppInfo.text = getString(R.string.open_whatsapp_business_info)
@@ -114,6 +135,84 @@ class MediaFragment : Fragment() {
                             }
                         }
                     }
+                    Constants.MEDIA_TYPE_WHATSAPP_BUSINESS_AUDIOS -> {
+                        viewModel.whatsAppBusinessAudiosLiveData.observe(requireActivity()) { unFiltered ->
+                            val filteredList = unFiltered.distinctBy { model ->
+                                model.fileName
+                            }
+                            val list = ArrayList<MediaModel>()
+                            filteredList.forEach { model ->
+                                list.add(model)
+                            }
+                            adapter = MediaAdapter(list, requireActivity())
+                            mediaRecyclerView.adapter = adapter
+                            if (list.size == 0) {
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.no_video_available_now)
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.open_whatsapp_business_info)
+                                noMediaHolder.visibility = View.VISIBLE
+                            } else {
+                                noMediaHolder.visibility = View.GONE
+                            }
+                        }
+                    }
+
+                    Constants.MEDIA_TYPE_DOWNLOADED_IMAGES -> {
+                        viewModel.downloadImagesLiveData.observe(requireActivity()) { unFiltered ->
+                            val filteredList = unFiltered.distinctBy { model ->
+                                model.fileName
+                            }
+                            val list = ArrayList<MediaModel>()
+                            filteredList.forEach { model ->
+                                list.add(model)
+                            }
+                            adapter = MediaAdapter(list, requireActivity())
+                            mediaRecyclerView.adapter = adapter
+                            if (list.size == 0) {
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.no_image_available_now)
+                                noMediaHolder.visibility = View.VISIBLE
+                            } else  {
+                                noMediaHolder.visibility = View.GONE
+                            }
+                        }
+                    }
+                    Constants.MEDIA_TYPE_DOWNLOADED_VIDEOS -> {
+                        viewModel.downloadVideosLiveData.observe(requireActivity()) { unFiltered ->
+                            val filteredList = unFiltered.distinctBy { model ->
+                                model.fileName
+                            }
+                            val list = ArrayList<MediaModel>()
+                            filteredList.forEach { model ->
+                                list.add(model)
+                            }
+                            adapter = MediaAdapter(list, requireActivity())
+                            mediaRecyclerView.adapter = adapter
+                            if (list.size == 0) {
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.no_image_available_now)
+                                noMediaHolder.visibility = View.VISIBLE
+                            } else  {
+                                noMediaHolder.visibility = View.GONE
+                            }
+                        }
+                    }
+                    Constants.MEDIA_TYPE_DOWNLOADED_AUDIOS -> {
+                        viewModel.downloadAudiosLiveData.observe(requireActivity()) { unFiltered ->
+                            val filteredList = unFiltered.distinctBy { model ->
+                                model.fileName
+                            }
+                            val list = ArrayList<MediaModel>()
+                            filteredList.forEach { model ->
+                                list.add(model)
+                            }
+                            adapter = MediaAdapter(list, requireActivity())
+                            mediaRecyclerView.adapter = adapter
+                            if (list.size == 0) {
+                                noMediaAvailable.noMediaTextView.text = getString(R.string.no_image_available_now)
+                                noMediaHolder.visibility = View.VISIBLE
+                            } else  {
+                                noMediaHolder.visibility = View.GONE
+                            }
+                        }
+                    }
 
                 }
             }
@@ -127,5 +226,11 @@ class MediaFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
+
+//    @SuppressLint("NotifyDataSetChanged")
+//    override fun onResume() {
+//        super.onResume()
+////        adapter.notifyDataSetChanged()
+//    }
 
 }

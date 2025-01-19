@@ -68,12 +68,12 @@
         app:itemTextAppearanceActiveBoldEnabled="true"
         app:menu="@menu/bottom_menu">
 
-        <View
-            android:id="@+id/indicator"
-            android:layout_width="55dp"
-            android:layout_height="5dp"
-            android:visibility="gone"
-            android:background="@color/colorPrimary" />
+<!--        <View-->
+<!--            android:id="@+id/indicator"-->
+<!--            android:layout_width="55dp"-->
+<!--            android:layout_height="5dp"-->
+<!--            android:visibility="gone"-->
+<!--            android:background="@color/colorPrimary" />-->
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

@@ -1,7 +1,6 @@
 package com.michael.statussaver.views.adapters
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -16,8 +15,8 @@ import com.michael.statussaver.R
 import com.michael.statussaver.databinding.ItemVideoPreviewBinding
 import com.michael.statussaver.utils.saveStatus
 
-class VideoPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context) :
-    RecyclerView.Adapter<VideoPreviewAdapter.ViewHolder>() {
+class AudiosPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context) :
+    RecyclerView.Adapter<AudiosPreviewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -74,22 +73,8 @@ class VideoPreviewAdapter(val list: ArrayList<MediaModel>, val context: Context)
                     }
 
                     // Share button:
-                    tools.shareButton.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.type = "video/*"
-                        intent.putExtra(Intent.EXTRA_STREAM, mediaModel.pathUri.toUri())
-                        intent.putExtra(Intent.EXTRA_TEXT, "Check out this video")
-                        context.startActivity(Intent.createChooser(intent, "Share with"))
-                    }
 
                     // Repost button:
-                    tools.repostButton.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.type = "video/*"
-                        intent.setPackage("com.whatsapp")
-                        intent.putExtra(Intent.EXTRA_STREAM, mediaModel.pathUri.toUri())
-                        context.startActivity(intent)
-                    }
                 }
             }
 

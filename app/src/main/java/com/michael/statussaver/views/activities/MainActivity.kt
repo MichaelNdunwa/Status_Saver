@@ -11,7 +11,6 @@ import com.michael.statussaver.utils.Constants
 import com.michael.statussaver.utils.SharedPrefUtils
 import com.michael.statussaver.utils.applyTheme
 import com.michael.statussaver.utils.replaceFragment
-import com.michael.statussaver.views.fragments.DownloadedFragment
 import com.michael.statussaver.views.fragments.StatusFragment
 
 class MainActivity : AppCompatActivity() {
@@ -33,11 +32,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bottomNavigation() {
-        val bundle = Bundle()
         binding.apply {
-            bottomNavigation.menu.getItem(0).isChecked = true
-            setIndicatorPosition(0)
+            val bundle = Bundle()
+//            bottomNavigation.menu.getItem(0).isChecked = true
             bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.STATUS_TYPE_WHATSAPP)
+//            bundle.putString(Constants.FRAGMENT_TYPE_KEY, "")
             replaceFragment(StatusFragment(), bundle)
 
             bottomNavigation.setOnItemSelectedListener { item ->
@@ -45,24 +44,24 @@ class MainActivity : AppCompatActivity() {
                 when (item.itemId) {
                     R.id.whatsapp -> {
                         // WhatsApp Fragment
+//                        val bundle = Bundle()
                         bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.STATUS_TYPE_WHATSAPP)
                         replaceFragment(StatusFragment(), bundle)
-                        setIndicatorPosition(0)
                     }
 
                     R.id.w_business -> {
                         // W.Business Fragment
+//                        val bundle = Bundle()
                         bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.STATUS_TYPE_WHATSAPP_BUSINESS)
                         replaceFragment(StatusFragment(), bundle)
-                        setIndicatorPosition(1)
                     }
 
                     R.id.downloaded -> {
                         // Downloaded Fragment
 //                        replaceFragment(DownloadedFragment())
+//                        val bundle = Bundle()
                         bundle.putString(Constants.FRAGMENT_TYPE_KEY, Constants.STATUS_TYPE_DOWNLOADED)
                         replaceFragment(StatusFragment(), bundle)
-                        setIndicatorPosition(2)
                     }
                 }
                 return@setOnItemSelectedListener true
@@ -71,22 +70,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setIndicatorPosition(selectedItemIndex: Int) {
-        binding.apply {
-            bottomNavigation.viewTreeObserver.addOnGlobalLayoutListener {
-                val menuItemWidth = bottomNavigation.width / bottomNavigation.menu.size()
-                val newXPosition =
-                    menuItemWidth * selectedItemIndex + menuItemWidth / 2 - indicator.width / 2
-
-                // Animate the indicator to the new position
-                indicator.animate()
-                    .translationX(newXPosition.toFloat())
-                    .setDuration(50)
-                    .start()
-                indicator.visibility = View.VISIBLE
-            }
-        }
-    }
+//    private fun setIndicatorPosition(selectedItemIndex: Int) {
+//        binding.apply {
+//            bottomNavigation.viewTreeObserver.addOnGlobalLayoutListener {
+//                val menuItemWidth = bottomNavigation.width / bottomNavigation.menu.size()
+//                val newXPosition =
+//                    menuItemWidth * selectedItemIndex + menuItemWidth / 2 - indicator.width / 2
+//
+//                // Animate the indicator to the new position
+//                indicator.animate()
+//                    .translationX(newXPosition.toFloat())
+//                    .setDuration(50)
+//                    .start()
+//                indicator.visibility = View.VISIBLE
+//            }
+//        }
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
