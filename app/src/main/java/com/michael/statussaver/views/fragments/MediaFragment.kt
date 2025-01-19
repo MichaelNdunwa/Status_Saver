@@ -1,7 +1,5 @@
 package com.michael.statussaver.views.fragments
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,14 +15,12 @@ import com.michael.statussaver.utils.Constants
 import com.michael.statussaver.viewmodels.StatusViewModel
 import com.michael.statussaver.viewmodels.factories.StatusViewModelFactory
 import com.michael.statussaver.views.adapters.MediaAdapter
-import kotlin.collections.reversed
 
 
 class MediaFragment : Fragment() {
     private val binding by lazy { FragmentMediaBinding.inflate(layoutInflater) }
     lateinit var viewModel: StatusViewModel
     lateinit var adapter: MediaAdapter
-//    var adapter: MediaAdapter = MediaAdapter(ArrayList(), requireActivity())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -227,10 +223,5 @@ class MediaFragment : Fragment() {
         return binding.root
     }
 
-//    @SuppressLint("NotifyDataSetChanged")
-//    override fun onResume() {
-//        super.onResume()
-////        adapter.notifyDataSetChanged()
-//    }
 
 }

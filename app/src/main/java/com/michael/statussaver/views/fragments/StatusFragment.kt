@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayoutMediator
@@ -18,13 +17,13 @@ import com.michael.statussaver.databinding.FragmentStatusBinding
 import com.michael.statussaver.R
 import com.michael.statussaver.data.StatusRepository
 import com.michael.statussaver.utils.Constants
+import com.michael.statussaver.utils.Constants.getDownloadedStatusUriPath
 import com.michael.statussaver.utils.SharedPrefKeys
 import com.michael.statussaver.utils.SharedPrefUtils
 import com.michael.statussaver.utils.getAllDownloadedFolderPermissions
 import com.michael.statussaver.utils.getFolderPermissions
 import com.michael.statussaver.viewmodels.StatusViewModel
 import com.michael.statussaver.viewmodels.factories.StatusViewModelFactory
-import com.michael.statussaver.views.activities.MainActivity
 import com.michael.statussaver.views.adapters.MediaViewPagerAdapter
 
 
@@ -35,7 +34,6 @@ class StatusFragment : Fragment() {
     private val WHATSAPP_REQUEST_CODE = 100
     private val WHATSAPP_BUSINESS_REQUEST_CODE = 101
     private val DOWNLOADED_REQUEST_CODE = 102
-//    private val activity = requireActivity()
     private val viewPagerTitles = arrayListOf("Images", "Videos", "Audio")
     lateinit var viewModel: StatusViewModel
     val TAG = "StatusFragment"
@@ -123,12 +121,12 @@ class StatusFragment : Fragment() {
                             }
                         }
                         givePermissionAccess.allowPermission.setOnClickListener {
-//                            getFolderPermissions(
-//                                context = requireActivity(),
-//                                REQUET_CODE = DOWNLOADED_REQUEST_CODE,
-//                                initialUri = Constants.getDownloadedStatusUriPath()
-//                            )
-                            getAllDownloadedFolderPermissions(context = requireActivity(), REQUET_CODE = DOWNLOADED_REQUEST_CODE)
+//                            getAllDownloadedFolderPermissions(context = requireActivity(), REQUET_CODE = DOWNLOADED_REQUEST_CODE)
+                            getAllDownloadedFolderPermissions(
+                                context = requireActivity(),
+                                REQUET_CODE = DOWNLOADED_REQUEST_CODE,
+                                initialUri = getDownloadedStatusUriPath()
+                            )
                         }
                         val viewPagerAdapter = MediaViewPagerAdapter(
                             fragmentActivity = requireActivity(),
@@ -216,11 +214,14 @@ class StatusFragment : Fragment() {
                 Toast.makeText(activity, "Refreshing WhatsApp Business Status", Toast.LENGTH_SHORT).show()
                 getWhatsAppBusinessStatus()
             }
+            Constants.STATUS_TYPE_DOWNLOADED -> {
+                Toast.makeText(activity, "Refreshing Downloaded Status", Toast.LENGTH_SHORT).show()
+                getDownloadedStatus()
+            }
         }
         Handler(Looper.myLooper()!!).postDelayed({
             binding.swipeRefreshLayout.isRefreshing = false
-        }, 2000)
-//        (requireActivity() as MainActivity).recreate()
+        }, 1000)
     }
 
 }

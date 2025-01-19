@@ -14,7 +14,6 @@ import com.michael.statussaver.databinding.ItemMediaBinding
 import com.michael.statussaver.models.MEDIA_TYPE_IMAGE
 import com.michael.statussaver.models.MediaModel
 import com.michael.statussaver.utils.Constants
-import com.michael.statussaver.utils.SharedPrefUtils
 import com.michael.statussaver.utils.isStatusExist
 import com.michael.statussaver.utils.saveStatus
 import com.michael.statussaver.views.activities.ImagesPreviewActivity
@@ -40,8 +39,6 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
                         playButton.visibility = View.GONE
                     }
                     // show download check if media is downloaded:
-//                    mediaModel.isDownloaded = SharedPrefUtils.getPrefDownloadState(mediaModel.fileName)
-//                    if (mediaModel.isDownloaded) {
                     if (context.isStatusExist(mediaModel.fileName, mediaModel.fileType)) {
                         downloadText.visibility = View.GONE
                         downloadCheck.visibility = View.VISIBLE
@@ -76,7 +73,6 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
                         val isDownload = context.saveStatus(mediaModel)
                         if (isDownload) {
                             // download status:
-//                            SharedPrefUtils.putPrefDownloadState(mediaModel.fileName, true)
                             mediaModel.isDownloaded = true
                             downloadCheck.visibility = View.VISIBLE
                             downloadText.visibility = View.GONE
@@ -98,8 +94,6 @@ class MediaAdapter(val list: ArrayList<MediaModel>, val context: Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = list[position]
         holder.bind(model)
-//        notifyItemChanged(position)
-//        notifyDataSetChanged()
         Log.d("What is happening", "$model")
     }
 

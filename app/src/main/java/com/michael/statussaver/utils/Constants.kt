@@ -42,11 +42,15 @@ object Constants {
 //    val DOWNLOADED_PATH_URI_ANDROID_11 =
 //        Uri.parse("content://com.android.externalstorage.documents/document/primary%3APictures%2FStatus%20Saver")
 
-    val DOWNLOADED_PATH_URI_ANDROID =
-        Uri.parse("content://com.android.externalstorage.documents/document/primary%3A")
-    val DOWNLOADED_PATH_URI_ANDROID_11 =
-        Uri.parse("content://com.android.externalstorage.documents/document/primary%3A")
+//    val DOWNLOADED_PATH_URI_ANDROID =
+//        Uri.parse("content://com.android.externalstorage.documents/document/primary%3A")
+//    val DOWNLOADED_PATH_URI_ANDROID_11 =
+//        Uri.parse("content://com.android.externalstorage.documents/document/primary%3A")
 
+    val DOWNLOADED_PATH_URI_ANDROID = listOf(
+        Uri.parse("content://com.android.externalstorage.documents/document/primary%3APictures%2FStatus%20Saver"), // For images and videos
+        Uri.parse("content://com.android.externalstorage.documents/document/primary%3AMusic%2FStatus%20Saver")     // For audio
+    )
 
     fun getWhatsAppStatusUriPath(): Uri {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -62,12 +66,14 @@ object Constants {
             WHATSAPP_BUSINESS_PATH_URI_ANDROID
         }
     }
-    fun getDownloadedStatusUriPath(): Uri {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            DOWNLOADED_PATH_URI_ANDROID_11
-        } else {
-            DOWNLOADED_PATH_URI_ANDROID
-        }
-    }
+//    fun getDownloadedStatusUriPath(): Uri {
+//        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            DOWNLOADED_PATH_URI_ANDROID_11
+//        } else {
+//            DOWNLOADED_PATH_URI_ANDROID
+//        }
+//    }
+
+    fun getDownloadedStatusUriPath(): List<Uri> = DOWNLOADED_PATH_URI_ANDROID
 
 }

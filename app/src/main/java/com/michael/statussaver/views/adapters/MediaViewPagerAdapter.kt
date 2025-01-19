@@ -13,29 +13,10 @@ class MediaViewPagerAdapter(
     private val videosType: String,
     private val audiosType: String
 ) : FragmentStateAdapter(fragmentActivity) {
-//    override  fun getItemCount() = 2
     override  fun getItemCount() = 3
 
     override fun createFragment(position: Int): Fragment {
-//        return when (position) {
-//            0 -> {
-//                // Image media fragment
-//                val mediaFragment = MediaFragment()
-//                val bundle = Bundle()
-//                bundle.putString(Constants.MEDIA_TYPE_KEY, imagesType)
-//                mediaFragment.arguments = bundle
-//                mediaFragment
-//            }
-//            else -> {
-//                // Videos media fragment:
-//                val mediaFragment = MediaFragment()
-//                val bundle = Bundle()
-//                bundle.putString(Constants.MEDIA_TYPE_KEY, videosType)
-//                mediaFragment.arguments = bundle
-//                mediaFragment
-//            }
-//        }
-//        val bundle = Bundle()
+
         return when (position) {
             0 -> {
                 // Image media fragment
